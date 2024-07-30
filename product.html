@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premium Watches</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+      color: #fff;
+      font-size: 18px;
+    }
+
+    header {
+      background: #222;
+      color: #fff;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: bold;
+      font-family: 'Georgia', serif;
+      text-transform: uppercase;
+      letter-spacing: 0.1rem;
+      display: flex;
+      align-items: center;
+      color: #e91e63;
+    }
+
+    .logo .part1, .logo .part2 {
+      opacity: 0;
+      display: inline-block;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1.2rem;
+      padding: 0.5rem 1rem;
+      transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+    }
+
+    .nav-links li a:hover {
+      background: #e91e63;
+      color: #fff;
+      border-radius: 5px;
+    }
+
+    .cta, .logout {
+      background: #e91e63;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.3s ease-in-out;
+    }
+
+    .cta:hover, .logout:hover {
+      background: #c2185b;
+    }
+
+    .hero {
+      height: 100vh;
+      background-image:url("images/Slice_2_WEB_14.webp" );
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding-top: 70px;
+    }
+
+    .hero-content {
+      max-width: 600px;
+    }
+    
+    section {
+      padding: 3rem 1rem;
+      text-align: center;
+      transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      color: #e91e63;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .features {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .feature {
+      background: #333;
+      padding: 1rem;
+      border-radius: 10px;
+      max-width: 300px;
+      cursor: pointer;
+      transition: transform 0.3s ease-in-out, background 0.3s ease-in-out;
+      margin: 1rem;
+    }
+
+    .feature:hover {
+      transform: translateY(-10px);
+      background: #444;
+    }
+
+    .feature img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .about,
+    .testimonials,
+    .contact {
+      background: #444;
+      color: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      margin: 1rem 0;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .about img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-top: 1rem;
+    }
+
+    .testimonial {
+      background: #333;
+      padding: 1rem;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+
+    footer {
+      background: #222;
+      padding: 2rem;
+      text-align: center;
+      color: #fff;
+      font-size: 1.2rem;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .social-links a {
+      color: #fff;
+      font-size: 1.5rem;
+      transition: color 0.3s ease-in-out;
+    }
+
+    .social-links a:hover {
+      color: #e91e63;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: #fff;
+      color: #333;
+      padding: 2rem;
+      border-radius: 10px;
+      max-width: 500px;
+      width: 90%;
+    }
+
+    .modal .close {
+      color: #333;
+      float: right;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .modal input,
+    .modal button {
+      display: block;
+      width: calc(100% - 2rem);
+      margin: 0.5rem auto;
+      padding: 0.5rem;
+    }
+
+    .modal input {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .modal button {
+      background: #e91e63;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease-in-out;
+    }
+
+    .modal button:hover {
+      background: #c2185b;
+    }
+
+    section {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInLeft {
+      0% {
+        opacity: 0;
+        transform: translateX(-100%);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideInDown {
+      0% {
+        opacity: 0;
+        transform: translateY(-100%);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .visible .logo .part1 {
+      animation: slideInLeft 1s forwards;
+    }
+
+    .visible .logo .part2 {
+      animation: slideInDown 1s forwards;
+    }
+
+    
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <span class="part1">Boat</span>
+      <span class="part2"><span>W</span><span>a</span><span>t</span><span>c</span><span>h</span><span>e</span><span>s</span></span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#testimonials">Testimonials</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button id="signUpBtn" class="cta">Sign Up</button>
+    <div id="userNav" style="display:none;">
+      <span id="accountName"></span>
+      <button id="logoutBtn" class="logout">Logout</button>
+    </div>
+  </header>
+
+  <section class="hero" id="home">
+    <div class="hero-content">
+    </div>
+  </section>
+
+  <section class="features" id="features">
+    <h2 class="section-title">Features</h2>
+    <div class="feature" onclick="featureClicked('Health Monitoring')">
+      <img src="images/health.jpeg" alt="Health Monitoring">
+      <h3>Health Monitoring</h3>
+      <p>Track your heart rate, sleep patterns, and more with our advanced health monitoring features.</p>
+    </div>
+    <div class="feature" onclick="featureClicked('Connectivity')">
+      <img src="images/features.jpeg" alt="Connectivity">
+      <h3>Connectivity</h3>
+      <p>Stay connected with notifications, calls, and messages directly on your wrist.</p>
+    </div>
+    <div class="feature" onclick="featureClicked('Battery Life')">
+      <img src="images/battery.jpeg" alt="Battery Life">
+      <h3>Battery Life</h3>
+      <p>Enjoy long-lasting battery life that keeps up with your busy lifestyle.</p>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <h2 class="section-title">About Us</h2>
+    <p>We are dedicated to providing the highest quality smartwatches that help you stay connected and healthy. Our smartwatches combine style, functionality, and innovation to deliver an exceptional user experience. We strive to exceed customer expectations by constantly evolving and improving our products based on feedback and the latest technological advancements. Our commitment to quality and customer satisfaction is reflected in every aspect of our business. We believe that a great smartwatch should not only be functional but also a stylish accessory that complements your lifestyle. Our team of experts works tirelessly to ensure that each smartwatch meets our high standards of performance and design.</p>
+    <img src="images/Slice_2_WEB_14.webp" alt="About Us">
+  </section>
+
+  <section class="testimonials" id="testimonials">
+    <h2 class="section-title">What Our Customers Say</h2>
+    <div class="testimonial">
+      <p>"This smartwatch has completely changed my life. The health tracking features are phenomenal!"</p>
+      <span>- Jane Doe</span>
+    </div>
+    <div class="testimonial">
+      <p>"I love the design and battery life. It’s the best smartwatch I’ve ever owned!"</p>
+      <span>- John Smith</span>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <h2 class="section-title">Get in Touch</h2>
+    <p>If you have any questions or would like to learn more about our products, feel free to contact us.</p>
+    <p>Email: info@smartwatch.com | Phone: 123-456-7890</p>
+  </section>
+
+  <footer>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+    <p>&copy; 2024 Premium Watches. All rights reserved.</p>
+  </footer>
+
+  <!-- Sign Up Modal -->
+  <div id="signUpModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Sign Up</h2>
+      <input id="nameInput" type="text" placeholder="Name">
+      <input type="email" placeholder="Email">
+      <input type="password" placeholder="Password">
+      <button onclick="signUp()">Sign Up</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const signUpBtn = document.getElementById('signUpBtn');
+      const signUpModal = document.getElementById('signUpModal');
+      const closeBtn = document.querySelector('.modal .close');
+      const userNav = document.getElementById('userNav');
+      const accountName = document.getElementById('accountName');
+      const logoutBtn = document.getElementById('logoutBtn');
+
+      signUpBtn.addEventListener('click', () => {
+        signUpModal.style.display = 'flex';
+      });
+
+      closeBtn.addEventListener('click', () => {
+        signUpModal.style.display = 'none';
+      });
+
+      window.addEventListener('click', (e) => {
+        if (e.target === signUpModal) {
+          signUpModal.style.display = 'none';
+        }
+      });
+
+      logoutBtn.addEventListener('click', () => {
+        userNav.style.display = 'none';
+        signUpBtn.style.display = 'block';
+      });
+
+      const features = document.querySelectorAll('.feature');
+      features.forEach((feature, index) => {
+        feature.style.animation = `fadeIn 0.5s ease-in-out ${index * 0.2}s both`;
+      });
+
+      const sections = document.querySelectorAll('section');
+      window.addEventListener('scroll', () => {
+        const scrollPosition = window.scrollY + window.innerHeight;
+        sections.forEach(section => {
+          if (scrollPosition > section.offsetTop + section.offsetHeight / 2) {
+            section.classList.add('visible');
+          }
+        });
+      });
+
+      setTimeout(() => {
+        document.querySelector('header').classList.add('visible');
+      }, 100);
+    });
+
+    function featureClicked(featureName) {
+      alert(`You clicked on the ${featureName} feature!`);
+    }
+
+    function signUp() {
+      const name = document.getElementById('nameInput').value;
+      if (name) {
+        document.getElementById('accountName').textContent = name;
+        document.getElementById('signUpModal').style.display = 'none';
+        document.getElementById('signUpBtn').style.display = 'none';
+        document.getElementById('userNav').style.display = 'flex';
+      }
+    }
+  </script>
+</body>
+</html>
